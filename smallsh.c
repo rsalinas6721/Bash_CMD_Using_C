@@ -65,10 +65,10 @@ Sigaction strucs are declared to ignore ctrl+c and catch ctrl+z
         for (y=0; userInput[y] != NULL; y++) {
             userInput[y] = NULL;
         }
-		inputCommand[0] = '\0';	// User input is cleared
-		background = 0;			// Background identifier is cleared
-		inputFile[0] = '\0';	// Input file name is cleared
-		outputFile[0] = '\0';	// Output file name is clered
+	inputCommand[0] = '\0';	// User input is cleared
+	background = 0;			// Background identifier is cleared
+	inputFile[0] = '\0';	// Input file name is cleared
+	outputFile[0] = '\0';	// Output file name is clered
     	printf(": ");
     	fflush(stdout);
     	fgets(inputCommand, 2048, stdin);				// User input is retrieved, stored in inputCommand
@@ -76,7 +76,7 @@ Sigaction strucs are declared to ignore ctrl+c and catch ctrl+z
 
 // No input is checked.
 // If usserinput is empty, program continues to rerun while loop.
-		if (!strcmp(inputCommand, "")) {
+	if (!strcmp(inputCommand, "")) {
             continue;
         }
 
@@ -85,7 +85,7 @@ Sigaction strucs are declared to ignore ctrl+c and catch ctrl+z
     	const char space[2] = " ";
     	char *token = strtok(inputCommand, space);
         int i;
-    	for (i=0; token; i++) {					// If a & is seen, background int is set to 1
+    	for (i=0; token; i++) {				// If a & is seen, background int is set to 1
     		if (strcmp(token, "&") == 0) {
     			background = 1;
     		}
@@ -101,7 +101,7 @@ Sigaction strucs are declared to ignore ctrl+c and catch ctrl+z
 				token = strtok(NULL, " ");
 				printf("%d\n", pid);
 		}
-    		else {								// If no special chars are found, the input is part of command.
+    		else {					// If no special chars are found, the input is part of command.
     			userInput[i] = strdup(token);
     		}
     		token = strtok(NULL, " ");
@@ -144,7 +144,7 @@ Sigaction strucs are declared to ignore ctrl+c and catch ctrl+z
 	else {
 
 // Else run command. This forks and runs command as a child process.
-            int in, out;				// In, Out variables are set
+            int in, out;			// In, Out variables are set
             pid_t spawnPid = -5;		// spawnPid is set to 5
             spawnPid = fork();			// Process is forked. Child is Birthed
             if (spawnPid == - 1){		// Program checks for error
@@ -158,7 +158,7 @@ Sigaction strucs are declared to ignore ctrl+c and catch ctrl+z
 
                 if (strcmp(inputFile, "")) {		// Check if inputFile contents exists
                     in = open(inputFile, O_RDONLY);	// Inputfile is opened
-                    if (in == -1) {					// Program checks for errors
+                    if (in == -1) {			// Program checks for errors
                         perror("Error Opening File\n");
                         exit(1);
                 	}
@@ -166,11 +166,11 @@ Sigaction strucs are declared to ignore ctrl+c and catch ctrl+z
                         perror("Error With DUP2 Function\n");
                         exit(1);
                     }
-                    close(in);						// file is closed
+                    close(in);				// file is closed
             	}
                 if (strcmp(outputFile, "")) {		// Check if outputFile contents exists
                     out = open(outputFile, O_WRONLY | O_CREAT | O_TRUNC, 0666);	// outputFile is opened
-                    if (out == -1) {				// Program checks for errors
+                    if (out == -1) {			// Program checks for errors
                         perror("Error Opening File\n");
                         exit(1);
                     }
@@ -184,17 +184,17 @@ Sigaction strucs are declared to ignore ctrl+c and catch ctrl+z
     	        if (execvp(userInput[0], (char* const*)userInput)) {	// Command is run, Error is checked
                     printf("Error With %s Command\n", userInput[0]);
 			int y;
-			for(y = 0; y < 512; y++){						// userInput is cleared and userInput is set to NULL
+			for(y = 0; y < 512; y++){	// userInput is cleared and userInput is set to NULL
                         userInput[y] = NULL;
                     }
                     exit(1);
                 }
             }
 
-            else{ // Program checks to see if the ctrl+z signal is stopped and if command is a background process
-                if (background == 1 && stopped == 1){	// Variables are checked
+		    else{ 	// Program checks to see if the ctrl+z signal is stopped and if command is a background process
+                if (background == 1 && stopped == 1){				// Variables are checked
                     pid_t actualPid = waitpid(spawnPid, &exitStatus, WNOHANG);	// Command is run in background. Parent does not wait for child to be completed.
-                    printf("The Background PID Is %d\n", spawnPid);					// childPid is printed to screen
+                    printf("The Background PID Is %d\n", spawnPid);		// childPid is printed to screen
                 }
                 else {
                     pid_t actualPid = waitpid(spawnPid, &exitStatus, 0);	// Command is not a background process.
@@ -213,11 +213,11 @@ Sigaction strucs are declared to ignore ctrl+c and catch ctrl+z
 
 // Variables are cleared
         inputCommand[0] = '\0';	// UserInput is cleared
-        background = 0;			// Background int is cleared and set to 0
+        background = 0;		// Background int is cleared and set to 0
         inputFile[0] = '\0';	// Input file name is cleared
-        outputFile[0] = '\0';	//	Output file name is cleared
+        outputFile[0] = '\0';	// Output file name is cleared
 		int x;
-        for(x = 0; x < 512; x++){	// Userinput is set to NULL
+        for(x = 0; x < 512; x++){ // Userinput is set to NULL
             userInput[x] = NULL;
         }
     }
