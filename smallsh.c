@@ -11,8 +11,9 @@
 int stopped = 1;
 
 /*-------------------------------
-Function printExitStatus is declared
-This function displays current exit status
+Function actionSigstop is declared
+This function is used to catch ctrl+z signal and display required output.
+Variable stopped is used to determine if a process can run in background.
 -------------------------------*/
 void actionSigstop(int signo){
     if (stopped == 0){
