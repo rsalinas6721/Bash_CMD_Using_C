@@ -38,14 +38,14 @@ int main() {
     ignore.sa_flags = 0;
     sigaction(SIGINT, &ignore, NULL);
 
-    int pid = getpid(); 		// PID is retrieved and initialized
-    int exitStatus = 0;			// Used for status sunction to return status
-    int background = 0;			// Used to identify whether it's a background process
-    char inputFile[512] = ""; 	// Used to hold name of input redirection file
-    char outputFile[512] = ""; 	// Used to hold name of output redirection file
-    char* userInput[512];		// Used to hold user input commands
-    char inputCommand[2048]; 	// Used to hold user input
-    int looping = 1;			// Keeps program running until user exits
+    int pid = getpid(); 
+    int exitStatus = 0;	
+    int background = 0;	
+    char inputFile[512] = "";
+    char outputFile[512] = "";
+    char* userInput[512];
+    char inputCommand[2048];
+    int looping = 1;
 
 
 	while(looping) {
